@@ -817,6 +817,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         }
 
 #else
+		//设置accept处理函数
 
         rev->handler = (c->type == SOCK_STREAM) ? ngx_event_accept
                                                 : ngx_event_recvmsg;

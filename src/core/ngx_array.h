@@ -14,8 +14,8 @@
 
 
 typedef struct {
-    void        *elts;
-    ngx_uint_t   nelts;
+    void        *elts; //ngx_listening_t
+    ngx_uint_t   nelts;// num
     size_t       size;
     ngx_uint_t   nalloc;
     ngx_pool_t  *pool;

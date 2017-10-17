@@ -170,7 +170,7 @@ ngx_init_cycle(ngx_cycle_t *old_cycle)
         ngx_destroy_pool(pool);
         return NULL;
     }
-
+//创建监听socket array
     n = old_cycle->listening.nelts ? old_cycle->listening.nelts : 10;
 
     if (ngx_array_init(&cycle->listening, pool, n, sizeof(ngx_listening_t))
@@ -606,7 +606,7 @@ ngx_init_cycle(ngx_cycle_t *old_cycle)
 #endif
         }
     }
-
+//创建socket
     if (ngx_open_listening_sockets(cycle) != NGX_OK) {
         goto failed;
     }
