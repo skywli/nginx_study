@@ -438,7 +438,7 @@ extern ngx_os_io_t  ngx_io;
 
 
 typedef struct {
-    ngx_uint_t    connections;
+    ngx_uint_t    connections;//允许连接数
     ngx_uint_t    use;
 
     ngx_flag_t    multi_accept;

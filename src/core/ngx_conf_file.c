@@ -458,7 +458,7 @@ ngx_conf_handler(ngx_conf_t *cf, ngx_int_t last)
                     conf = confp[cf->cycle->modules[i]->ctx_index];
                 }
             }
-
+//¸÷Ä£¿éÅäÖÃ½âÎö
             rv = cmd->set(cf, cmd, conf);
 
             if (rv == NGX_CONF_OK) {

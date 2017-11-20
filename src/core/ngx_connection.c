@@ -376,7 +376,7 @@ ngx_set_inherited_sockets(ngx_cycle_t *cycle)
     return NGX_OK;
 }
 
-
+//´´½¨¼àÌýsocket
 ngx_int_t
 ngx_open_listening_sockets(ngx_cycle_t *cycle)
 {

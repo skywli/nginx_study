@@ -60,7 +60,7 @@ ngx_tcp_nopush(ngx_socket_t s)
                       (const void *) &tcp_nopush, sizeof(int));
 }
 
-
+//加强版nagle算法,提高发送效率
 int
 ngx_tcp_push(ngx_socket_t s)
 {

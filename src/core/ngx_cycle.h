@@ -44,8 +44,8 @@ struct ngx_cycle_s {
 
     ngx_uint_t                log_use_stderr;  /* unsigned  log_use_stderr:1; */
 
-    ngx_connection_t        **files;
-    ngx_connection_t         *free_connections;
+    ngx_connection_t        **files;//以socket为下标，指向每个ngx_connection_t
+    ngx_connection_t         *free_connections;//指向空闲连接
     ngx_uint_t                free_connection_n;
 
     ngx_module_t            **modules;
@@ -65,11 +65,12 @@ struct ngx_cycle_s {
     ngx_list_t                open_files;
     ngx_list_t                shared_memory;
 
-    ngx_uint_t                connection_n;
-    ngx_uint_t                files_n;
+    ngx_uint_t                connection_n;//配置中连接数
+    ngx_uint_t                files_n;//最大文件描述符数
 
-    ngx_connection_t         *connections;
-    ngx_event_t              *read_events;
+//连接下标与事件下标相对应
+    ngx_connection_t         *connections;//指向连接池    
+    ngx_event_t              *read_events;//指向所有读事件
     ngx_event_t              *write_events;
 
     ngx_cycle_t              *old_cycle;

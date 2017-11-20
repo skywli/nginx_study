@@ -14,10 +14,10 @@
 
 
 typedef struct {
-    void        *elts; //ngx_listening_t
-    ngx_uint_t   nelts;// num
-    size_t       size;
-    ngx_uint_t   nalloc;
+    void        *elts; //指向元素数组指针
+    ngx_uint_t   nelts;// 元素个数
+    size_t       size; //每个元素大小
+    ngx_uint_t   nalloc; //实际分配元素个数
     ngx_pool_t  *pool;
 } ngx_array_t;
 

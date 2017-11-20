@@ -119,7 +119,7 @@ typedef enum {
 
 
 struct ngx_connection_s {
-    void               *data;
+    void               *data;//next÷∏’Î
     ngx_event_t        *read;
     ngx_event_t        *write;
 
@@ -138,7 +138,7 @@ struct ngx_connection_s {
 
     ngx_pool_t         *pool;
 
-    int                 type;
+    int                 type;//SOCK_STREAM 
 
     struct sockaddr    *sockaddr;
     socklen_t           socklen;

@@ -218,7 +218,7 @@
 
 #define NGX_MODULE_V1_PADDING  0, 0, 0, 0, 0, 0, 0, 0
 
-
+//模块基本数据结构
 struct ngx_module_s {
     ngx_uint_t            ctx_index;
     ngx_uint_t            index;
@@ -231,7 +231,7 @@ struct ngx_module_s {
     ngx_uint_t            version;
     const char           *signature;
 
-    void                 *ctx;
+    void                 *ctx; //指向ngx_core_module_t 或者ngx_event_module_t
     ngx_command_t        *commands;
     ngx_uint_t            type;
 
