@@ -220,7 +220,7 @@
 
 //模块基本数据结构
 struct ngx_module_s {
-    ngx_uint_t            ctx_index;
+    ngx_uint_t            ctx_index;//对于一类模块而言(type)
     ngx_uint_t            index;
 
     char                 *name;
@@ -231,7 +231,7 @@ struct ngx_module_s {
     ngx_uint_t            version;
     const char           *signature;
 
-    void                 *ctx; //指向ngx_core_module_t 或者ngx_event_module_t
+    void                 *ctx; //NGX_CORE_MODULE -> ngx_core_module_t  NGX_EVENT_MODULE -> ngx_event_module_t ; NGX_HTTP_MODULE -> ngx_http_module_t
     ngx_command_t        *commands;
     ngx_uint_t            type;
 

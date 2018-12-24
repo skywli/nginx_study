@@ -34,7 +34,9 @@ ngx_uint_t             ngx_quiet_mode;
 static ngx_connection_t  dumb;
 /* STUB */
 
-
+/* 1 解析nginx.conf配置文件，初始化各个模块
+ * 2 创建listen socket
+*/
 ngx_cycle_t *
 ngx_init_cycle(ngx_cycle_t *old_cycle)
 {

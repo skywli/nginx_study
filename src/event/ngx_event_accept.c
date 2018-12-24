@@ -17,7 +17,7 @@ static void ngx_close_accepted_connection(ngx_connection_t *c);
 static void ngx_debug_accepted_connection(ngx_event_conf_t *ecf,
     ngx_connection_t *c);
 #endif
-
+//通用事件accept模块，accept后的connection，交由具体模块(http,email)处理
 
 void
 ngx_event_accept(ngx_event_t *ev)
@@ -202,7 +202,7 @@ ngx_event_accept(ngx_event_t *ev)
         }
 
         *log = ls->log;
-
+//设置读写回调
         c->recv = ngx_recv;
         c->send = ngx_send;
         c->recv_chain = ngx_recv_chain;

@@ -115,7 +115,7 @@ ngx_module_t  ngx_http_module = {
     NGX_MODULE_V1_PADDING
 };
 
-
+//初始化http 配置块
 static char *
 ngx_http_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 {
@@ -141,7 +141,7 @@ ngx_http_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 
     *(ngx_http_conf_ctx_t **) conf = ctx;
 
-
+//统计http模块数
     /* count the number of the http modules and set up their indices */
 
     ngx_http_max_module = ngx_count_modules(cf->cycle, NGX_HTTP_MODULE);
@@ -1687,7 +1687,7 @@ ngx_http_init_listening(ngx_conf_t *cf, ngx_http_conf_port_t *port)
             }
             break;
         }
-
+//将ngx_listening_t 加到cycle中
         if (ngx_clone_listening(cf, ls) != NGX_OK) {
             return NGX_ERROR;
         }
@@ -1706,7 +1706,7 @@ ngx_http_add_listening(ngx_conf_t *cf, ngx_http_conf_addr_t *addr)
     ngx_listening_t           *ls;
     ngx_http_core_loc_conf_t  *clcf;
     ngx_http_core_srv_conf_t  *cscf;
-
+//初始化一个listen socket,但还没创建socket
     ls = ngx_create_listening(cf, &addr->opt.sockaddr.sockaddr,
                               addr->opt.socklen);
     if (ls == NULL) {
@@ -1715,7 +1715,7 @@ ngx_http_add_listening(ngx_conf_t *cf, ngx_http_conf_addr_t *addr)
 
     ls->addr_ntop = 1;
 
-    ls->handler = ngx_http_init_connection;
+    ls->handler = ngx_http_init_connection;//设置http accept回调
 
     cscf = addr->default_server;
     ls->pool_size = cscf->connection_pool_size;

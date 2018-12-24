@@ -14,7 +14,7 @@
 
 
 typedef struct ngx_listening_s  ngx_listening_t;
-
+//nginx 可能会创建n个listen socket
 struct ngx_listening_s {
     ngx_socket_t        fd;
 
@@ -35,7 +35,7 @@ struct ngx_listening_s {
 #endif
 
     /* handler of accepted connection */
-    ngx_connection_handler_pt   handler;
+    ngx_connection_handler_pt   handler; //处理accept请求
 
     void               *servers;  /* array of ngx_http_in_addr_t, for example */
 
@@ -49,7 +49,7 @@ struct ngx_listening_s {
     ngx_msec_t          post_accept_timeout;
 
     ngx_listening_t    *previous;
-    ngx_connection_t   *connection;
+    ngx_connection_t   *connection;//指向connection
 
     ngx_uint_t          worker;
 
@@ -119,18 +119,18 @@ typedef enum {
 
 
 struct ngx_connection_s {
-    void               *data;//next指针
+    void               *data;//next指针,连接所有connnection
     ngx_event_t        *read;
     ngx_event_t        *write;
 
     ngx_socket_t        fd;
 
-    ngx_recv_pt         recv;
+    ngx_recv_pt         recv;//读处理函数
     ngx_send_pt         send;
     ngx_recv_chain_pt   recv_chain;
     ngx_send_chain_pt   send_chain;
 
-    ngx_listening_t    *listening;
+    ngx_listening_t    *listening;//每个connect属于哪个listening
 
     off_t               sent;
 

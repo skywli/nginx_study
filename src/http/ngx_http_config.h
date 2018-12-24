@@ -13,7 +13,7 @@
 #include <ngx_core.h>
 #include <ngx_http.h>
 
-
+//¼ÇÂ¼ËùÓÐhttp module
 typedef struct {
     void        **main_conf;
     void        **srv_conf;

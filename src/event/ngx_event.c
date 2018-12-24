@@ -239,13 +239,13 @@ ngx_process_events_and_timers(ngx_cycle_t *cycle)
 
     delta = ngx_current_msec;
 
-    (void) ngx_process_events(cycle, timer, flags);
+    (void) ngx_process_events(cycle, timer, flags);//事件循环
 
     delta = ngx_current_msec - delta;
 
     ngx_log_debug1(NGX_LOG_DEBUG_EVENT, cycle->log, 0,
                    "timer delta: %M", delta);
-
+//accpet事件循环处理
     ngx_event_process_posted(cycle, &ngx_posted_accept_events);
 
     if (ngx_accept_mutex_held) {
@@ -563,7 +563,7 @@ ngx_timer_signal_handler(int signo)
 
 #endif
 
-//初始化监听sock
+//初始化监听sock 的connection,并且注册listeing sock accept事件回调
 static ngx_int_t
 ngx_event_process_init(ngx_cycle_t *cycle)
 {
@@ -680,6 +680,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
 #endif
 
+//初始化connection和revent,wevent,并将其关联，好处避免动态管理内存
     cycle->connections =
         ngx_alloc(sizeof(ngx_connection_t) * cycle->connection_n, cycle->log);
     if (cycle->connections == NULL) {
@@ -713,7 +714,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
     i = cycle->connection_n;
     next = NULL;
-
+//初始化connection 读写事件，并将connection 以链表形式连接起来
     do {
         i--;
 
@@ -727,7 +728,8 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
     cycle->free_connections = next;
     cycle->free_connection_n = cycle->connection_n;
-
+	
+//给所有的listen socket 创建ngx_connection_t
     /* for each listening socket */
 
     ls = cycle->listening.elts;
@@ -853,7 +855,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         }
 
 #endif
-
+//添加可读事件，即accept事件
         if (ngx_add_event(rev, NGX_READ_EVENT, 0) == NGX_ERROR) {
             return NGX_ERROR;
         }

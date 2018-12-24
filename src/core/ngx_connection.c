@@ -1085,7 +1085,7 @@ ngx_get_connection(ngx_socket_t s, ngx_log_t *log)
 
     rev->index = NGX_INVALID_INDEX;
     wev->index = NGX_INVALID_INDEX;
-
+//将每个event data指向 ngx_connection_t
     rev->data = c;
     wev->data = c;
 

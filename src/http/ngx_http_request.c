@@ -194,7 +194,7 @@ ngx_http_header_t  ngx_http_headers_in[] = {
     { ngx_null_string, 0, NULL }
 };
 
-
+//接收到一个连接请求
 void
 ngx_http_init_connection(ngx_connection_t *c)
 {
@@ -366,7 +366,7 @@ ngx_http_init_connection(ngx_connection_t *c)
 
     ngx_add_timer(rev, c->listening->post_accept_timeout);
     ngx_reusable_connection(c, 1);
-
+//设置读事件
     if (ngx_handle_read_event(rev, 0) != NGX_OK) {
         ngx_http_close_connection(c);
         return;
@@ -388,7 +388,8 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
     c = rev->data;
 
     ngx_log_debug0(NGX_LOG_DEBUG_HTTP, c->log, 0, "http wait request handler");
-
+	
+//读超时事件
     if (rev->timedout) {
         ngx_log_error(NGX_LOG_INFO, c->log, NGX_ETIMEDOUT, "client timed out");
         ngx_http_close_connection(c);
@@ -404,7 +405,7 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
     cscf = ngx_http_get_module_srv_conf(hc->conf_ctx, ngx_http_core_module);
 
     size = cscf->client_header_buffer_size;
-
+//connection只有read buffer缓存指针，但并不设置大小，由应用层初始化，妙，这个buffer 由一个具体结构表示，与connection解耦
     b = c->buffer;
 
     if (b == NULL) {

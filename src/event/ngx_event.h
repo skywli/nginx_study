@@ -28,7 +28,7 @@ typedef struct {
 
 
 struct ngx_event_s {
-    void            *data;
+    void            *data;//指向connection
 
     unsigned         write:1;
 
@@ -41,7 +41,7 @@ struct ngx_event_s {
      * the event was passed or would be passed to a kernel;
      * in aio mode - operation was posted.
      */
-    unsigned         active:1;
+    unsigned         active:1;//事件是否激活
 
     unsigned         disabled:1;
 
@@ -107,7 +107,7 @@ struct ngx_event_s {
     unsigned         available:1;
 #endif
 
-    ngx_event_handler_pt  handler;
+    ngx_event_handler_pt  handler;//事件回调(read write accept)
 
 
 #if (NGX_HAVE_IOCP)
@@ -194,7 +194,7 @@ typedef struct {
 } ngx_event_actions_t;
 
 
-extern ngx_event_actions_t   ngx_event_actions;
+extern ngx_event_actions_t   ngx_event_actions; //由每个具体事件模块(epoll select)初始化
 #if (NGX_HAVE_EPOLLRDHUP)
 extern ngx_uint_t            ngx_use_epoll_rdhup;
 #endif

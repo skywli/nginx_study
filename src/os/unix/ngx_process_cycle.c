@@ -293,7 +293,8 @@ ngx_single_process_cycle(ngx_cycle_t *cycle)
         /* fatal */
         exit(2);
     }
-
+/* 1 event模块 设置各个listen socket 读事件
+*/
     for (i = 0; cycle->modules[i]; i++) {
         if (cycle->modules[i]->init_process) {
             if (cycle->modules[i]->init_process(cycle) == NGX_ERROR) {
