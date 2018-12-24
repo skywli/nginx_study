@@ -314,7 +314,7 @@ again:
     return index;
 }
 
-
+//从event/http等模块中寻找一个可用的index给子模块
 static ngx_uint_t
 ngx_module_ctx_index(ngx_cycle_t *cycle, ngx_uint_t type, ngx_uint_t index)
 {

@@ -123,7 +123,7 @@ struct ngx_conf_s {
     ngx_conf_file_t      *conf_file;
     ngx_log_t            *log;
 
-    void                 *ctx;
+    void                 *ctx;  //指向同类module 配置
     ngx_uint_t            module_type;
     ngx_uint_t            cmd_type;
 

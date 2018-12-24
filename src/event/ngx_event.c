@@ -41,7 +41,7 @@ sig_atomic_t          ngx_event_timer_alarm;
 static ngx_uint_t     ngx_event_max_module;
 
 ngx_uint_t            ngx_event_flags;
-ngx_event_actions_t   ngx_event_actions;
+ngx_event_actions_t   ngx_event_actions; //多路复用接口，由具体模块(epoll,select...)初始化
 
 
 static ngx_atomic_t   connection_counter = 1;
@@ -609,13 +609,13 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         if (cycle->modules[m]->type != NGX_EVENT_MODULE) {
             continue;
         }
-
+		
         if (cycle->modules[m]->ctx_index != ecf->use) {
             continue;
         }
 
         module = cycle->modules[m]->ctx;
-
+     //初始化多路复用接口,epoll/select在编译期选择
         if (module->actions.init(cycle, ngx_timer_resolution) != NGX_OK) {
             /* fatal */
             exit(2);
@@ -917,7 +917,7 @@ ngx_events_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
     }
 
     /* count the number of the event modules and set up their indices */
-
+//统计事件模块数量同时给index赋值
     ngx_event_max_module = ngx_count_modules(cf->cycle, NGX_EVENT_MODULE);
 
     ctx = ngx_pcalloc(cf->pool, sizeof(void *));
@@ -1279,7 +1279,7 @@ ngx_event_core_init_conf(ngx_cycle_t *cycle, void *conf)
 
     ngx_conf_init_uint_value(ecf->connections, DEFAULT_CONNECTIONS);
     cycle->connection_n = ecf->connections;
-
+//记录当前使用的event_module index
     ngx_conf_init_uint_value(ecf->use, module->ctx_index);
 
     event_module = module->ctx;

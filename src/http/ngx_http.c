@@ -189,10 +189,10 @@ ngx_http_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
         }
 
         module = cf->cycle->modules[m]->ctx;
-        mi = cf->cycle->modules[m]->ctx_index;
+        mi = cf->cycle->modules[m]->ctx_index;//获取每个http 模块index
 
         if (module->create_main_conf) {
-            ctx->main_conf[mi] = module->create_main_conf(cf);
+            ctx->main_conf[mi] = module->create_main_conf(cf);//以index 为下标记录每个module main_conf
             if (ctx->main_conf[mi] == NULL) {
                 return NGX_CONF_ERROR;
             }

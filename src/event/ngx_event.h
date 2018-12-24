@@ -26,9 +26,9 @@ typedef struct {
 
 #endif
 
-
+//对所有的连接类型(http,email，tcp等)事件(accept)统一回调接口
 struct ngx_event_s {
-    void            *data;//指向connection
+    void            *data;//指向具体connection
 
     unsigned         write:1;
 
@@ -439,7 +439,7 @@ extern ngx_os_io_t  ngx_io;
 
 typedef struct {
     ngx_uint_t    connections;//允许连接数
-    ngx_uint_t    use;
+    ngx_uint_t    use;//当前使用的event_module index
 
     ngx_flag_t    multi_accept;
     ngx_flag_t    accept_mutex;
